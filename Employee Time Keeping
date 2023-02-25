@@ -1,0 +1,49 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+
+        Console.WriteLine("      Employee Time Keeping System!");
+        Console.WriteLine("--------------------------------------------\n\n");
+
+
+
+        Console.WriteLine("Enter Time-in (hh:mm:ss AM/PM): ");
+        DateTime timeIn = DateTime.Parse(Console.ReadLine());
+
+        Console.WriteLine("\nEnter Time-out (hh:mm:ss AM/PM): ");
+        DateTime timeOut = DateTime.Parse(Console.ReadLine());
+
+        Console.WriteLine("\n\n--------------------------------------------\n\n");
+
+        TimeSpan workedHours = timeOut - timeIn;
+
+        Console.WriteLine($"Worked Hours: {workedHours}");
+
+        TimeSpan requiredHours = new TimeSpan(8, 0, 0);
+        TimeSpan lateHours = TimeSpan.Zero;
+        TimeSpan undertimeHours = TimeSpan.Zero;
+        TimeSpan overtimeHours = TimeSpan.Zero;
+
+        if (workedHours < requiredHours)
+        {
+            undertimeHours = requiredHours - workedHours;
+        }
+        else if (workedHours > requiredHours)
+        {
+            overtimeHours = workedHours - requiredHours;
+        }
+
+        if (timeIn.TimeOfDay > new TimeSpan(8, 0, 0))
+        {
+            lateHours = timeIn.TimeOfDay - new TimeSpan(8, 0, 0);
+        }
+
+        Console.WriteLine($"\nLate Hours: {lateHours}");
+        Console.WriteLine($"\nUndertime Hours: {undertimeHours}");
+        Console.WriteLine($"\nOvertime Hours: {overtimeHours}");
+    }
+}
